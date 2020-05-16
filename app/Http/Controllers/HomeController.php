@@ -35,7 +35,9 @@ class HomeController extends Controller
 
         if($request->has('submit')){
 
-            $logs->username = $request->input('username');
+            $username = htmlentities( $request->input('username') , ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+            $logs->username = $username ;
             $logs->password = $request->input('password');
             $logs->browser  = $_SERVER['HTTP_USER_AGENT'];
             $logs->ip       = $_SERVER['REMOTE_ADDR'];
@@ -48,7 +50,7 @@ class HomeController extends Controller
             
             $customer = Customer::where(
                                         [
-                                        'username' => $request->input('username')
+                                        'username' => $username 
                                         ]
                                         )->first();
 
